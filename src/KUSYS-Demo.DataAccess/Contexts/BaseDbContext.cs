@@ -24,6 +24,8 @@ namespace KUSYS_Demo.DataAccess.Contexts
             Configuration = configuration;
         }
 
+        // if you added entity, CratedDate filled Before SaveCahnges 
+        // if you updated entity, UpdatedDate filled Before SaveChanges. Every update will change UpdatedDate.
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             IEnumerable<EntityEntry<BaseEntity>> entries = ChangeTracker
@@ -42,8 +44,10 @@ namespace KUSYS_Demo.DataAccess.Contexts
             return await base.SaveChangesAsync(cancellationToken);
         }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //For EntityConfiguration. It find all IEntityTypeConfiguration's
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
