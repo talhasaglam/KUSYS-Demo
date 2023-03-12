@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KUSYS_Demo.Application.Dtos.Student
 {
-    public class CreateStudentDto
+    public class CreateUpdateStudentDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

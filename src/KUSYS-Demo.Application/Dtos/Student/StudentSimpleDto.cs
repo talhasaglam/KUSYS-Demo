@@ -8,6 +8,7 @@ namespace KUSYS_Demo.Application.Dtos.Student
 {
     public class StudentSimpleDto
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

@@ -1,0 +1,60 @@
+﻿@page
+@model KUSYS_Demo.WebApp.Pages.Students.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<table id="studentTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                BirthDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        var dataTable = $('#studentTable').DataTable({
+            "proccessing": true,
+            "serverSide": true,
+            "searching": false,
+            "ajax": {
+                url: "/Students",
+                type: 'POST',
+                headers: { 'RequestVerificationToken': $('@Html.AntiForgeryToken()').val() }
+            },
+            "columnDefs": [
+                {
+                    "targets": -1,
+                    "data": "buttons",
+                    "orderable": false,
+                    "render": function (data, type, row, meta) {
+                        let text = '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
+                            ' class="btn btn-sm btn-outline-info p-1 " name="entity-edit" title="' +
+                            "Edit" + '" data-rowid="' + row.id + '" ><i class="fa fa-edit me-1"></i></a></span>';
+                        return text;
+                    }
+                },
+                { "name": "Id", "data": "id", "targets": 0, "visible": false },
+                { "name": "FirstName", "data": "firstName", "targets": 1 },
+                { "name": "LastName", "data": "lastName", "targets": 2 },
+                { "name": "BirthDate", "data": "birthDate", "targets": 3 }
+            ],
+            "order": [[0, "desc"]]
+        });
+    </script>
+}

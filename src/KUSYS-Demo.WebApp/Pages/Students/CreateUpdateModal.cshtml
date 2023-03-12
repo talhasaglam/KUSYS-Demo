@@ -1,0 +1,41 @@
+﻿@page
+@model KUSYS_Demo.WebApp.Pages.Students.CreateUpdateModalModel
+@{
+    Layout = null;
+    var title = Model.Id > 0 ? "Student Update Form" : "Student Create Form";
+}
+<form data-ajaxForm="true" asp-page="/Students/CreateUpdateModal" method="post">
+    <div class="modal fade" id="createUpdateModal" tabindex="-1" aria-labelledby="createUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createUpdateModalLabel">@title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Student.FirstName" class="control-label"></label>
+                        <input asp-for="Student.FirstName" class="form-control" readonly />
+                        <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.LastName" class="control-label"></label>
+                        <input asp-for="Student.LastName" class="form-control" />
+                        <span asp-validation-for="Student.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.BirthDate" class="control-label"></label>
+                        <input asp-for="Student.BirthDate" type="date" class="form-control" />
+                        <span asp-validation-for="Student.BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> <span>Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

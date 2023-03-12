@@ -23,7 +23,7 @@ namespace KUSYS_Demo.Application.Services
             _studentRepository = studentRepository;
             _mapper = mapper;
         }
-        public async Task CreateAsync(CreateStudentDto createStudentDto)
+        public async Task CreateAsync(CreateUpdateStudentDto createStudentDto)
         {
             var student = _mapper.Map<Student>(createStudentDto);
             await _studentRepository.InsertAsync(student,true);
@@ -56,7 +56,7 @@ namespace KUSYS_Demo.Application.Services
             return new PagedResultDto<StudentSimpleDto> { Items = studentSimpleListDto, TotalCount = totalCount, RecordCount = recordCount };
         }
 
-        public async Task UpdateAsync(UpdateStudentDto updateStudentDto)
+        public async Task UpdateAsync(CreateUpdateStudentDto updateStudentDto)
         {
             var student = _mapper.Map<Student>(updateStudentDto);
             await _studentRepository.UpdateAsync(student, true);
