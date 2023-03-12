@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUSYS-Demo.WebApp", "src\KUSYS-Demo.WebApp\KUSYS-Demo.WebApp.csproj", "{DBA05923-FA11-4B3E-8259-592B5FD76A73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUSYS-Demo.WebApp", "src\KUSYS-Demo.WebApp\KUSYS-Demo.WebApp.csproj", "{DBA05923-FA11-4B3E-8259-592B5FD76A73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUSYS-Demo.Application", "src\KUSYS-Demo.Application\KUSYS-Demo.Application.csproj", "{90F5FBE6-D64D-4230-9A26-EC76178029B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUSYS-Demo.Application", "src\KUSYS-Demo.Application\KUSYS-Demo.Application.csproj", "{90F5FBE6-D64D-4230-9A26-EC76178029B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUSYS-Demo.DataAccess", "src\KUSYS-Demo.DataAccess\KUSYS-Demo.DataAccess.csproj", "{4E2DD7FF-66C2-4FD4-AC71-DE382E03D34E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUSYS-Demo.DataAccess", "src\KUSYS-Demo.DataAccess\KUSYS-Demo.DataAccess.csproj", "{4E2DD7FF-66C2-4FD4-AC71-DE382E03D34E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KUSYS-Demo.Entity", "src\KUSYS-Demo.Entity\KUSYS-Demo.Entity.csproj", "{06F082F5-F6BD-4734-85E4-AB49AAE46344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUSYS-Demo.Entity", "src\KUSYS-Demo.Entity\KUSYS-Demo.Entity.csproj", "{06F082F5-F6BD-4734-85E4-AB49AAE46344}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{80536552-DAD9-4C8E-B66D-AC1A9F36D04B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DBA05923-FA11-4B3E-8259-592B5FD76A73} = {80536552-DAD9-4C8E-B66D-AC1A9F36D04B}
+		{90F5FBE6-D64D-4230-9A26-EC76178029B9} = {80536552-DAD9-4C8E-B66D-AC1A9F36D04B}
+		{4E2DD7FF-66C2-4FD4-AC71-DE382E03D34E} = {80536552-DAD9-4C8E-B66D-AC1A9F36D04B}
+		{06F082F5-F6BD-4734-85E4-AB49AAE46344} = {80536552-DAD9-4C8E-B66D-AC1A9F36D04B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9CC9F958-77F0-4519-AA02-7418ADE40BF5}
