@@ -3,31 +3,39 @@
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+<div class="card">
+    <button onClick="openModal()" type="button" name="entity-create" class="btn btn-primary">Create Student</button>
+    <div class="card-body">
+        <table id="studentTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        FirstName
+                    </th>
+                    <th>
+                        LastName
+                    </th>
+                    <th>
+                        BirthDate
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table id="studentTable" class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                FirstName
-            </th>
-            <th>
-                LastName
-            </th>
-            <th>
-                BirthDate
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
 
 @section Scripts{
     <script>
+        var createUpdateModal = new kusys.ModalManager({
+            viewUrl: "/Students/CreateUpdateModal"
+        });
         var dataTable = $('#studentTable').DataTable({
             "proccessing": true,
             "serverSide": true,
@@ -55,6 +63,21 @@
                 { "name": "BirthDate", "data": "birthDate", "targets": 3 }
             ],
             "order": [[0, "desc"]]
+        });
+
+        $('#studentTable tbody').on('click', '[name=entity-edit]', function () {
+            var rowId = $(this).data('rowid');
+            var entity = dataTable.row(rowId).data();
+
+            createUpdateModal.open({ id: rowId });
+        });
+
+        function openModal(){
+            createUpdateModal.open();
+        }
+
+        createUpdateModal.onResult(function () {
+            dataTable.ajax.reload(null, false);
         });
     </script>
 }

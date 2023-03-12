@@ -56,10 +56,14 @@ namespace KUSYS_Demo.Application.Services
             return new PagedResultDto<StudentSimpleDto> { Items = studentSimpleListDto, TotalCount = totalCount, RecordCount = recordCount };
         }
 
-        public async Task UpdateAsync(CreateUpdateStudentDto updateStudentDto)
+        public async Task UpdateAsync(CreateUpdateStudentDto updateStudentDto, int id)
         {
-            var student = _mapper.Map<Student>(updateStudentDto);
-            await _studentRepository.UpdateAsync(student, true);
+            var student = await _studentRepository.GetAsync(x => x.Id == id);
+            if (student is null)
+                throw new Exception("Student Not Found");
+
+            var mappedStudent = _mapper.Map<CreateUpdateStudentDto,Student>(updateStudentDto,student);
+            await _studentRepository.UpdateAsync(mappedStudent, true);
         }
     }
 }

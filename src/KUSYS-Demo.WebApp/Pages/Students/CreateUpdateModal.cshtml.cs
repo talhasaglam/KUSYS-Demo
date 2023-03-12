@@ -39,11 +39,13 @@ namespace KUSYS_Demo.WebApp.Pages.Students
                 return InvalidModel();
 
             if(Id > 0)
-                await _studentService.UpdateAsync(Student);
+            {
+                await _studentService.UpdateAsync(Student,Id);
+            }
             else
                 await _studentService.CreateAsync(Student);
 
-            return new NoContentResult();
+            return NoContent();
         }
     }
 }
