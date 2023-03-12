@@ -12,6 +12,10 @@ namespace KUSYS_Demo.WebApp.Pages.Students
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
 
+        [HiddenInput]
+        [BindProperty(SupportsGet = true)]
+        public bool ReadOnly { get; set; }
+
         [BindProperty]
         public CreateUpdateStudentDto Student { get; set; }
 

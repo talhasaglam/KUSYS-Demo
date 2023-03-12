@@ -65,5 +65,14 @@ namespace KUSYS_Demo.Application.Services
             var mappedStudent = _mapper.Map<CreateUpdateStudentDto,Student>(updateStudentDto,student);
             await _studentRepository.UpdateAsync(mappedStudent, true);
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var student = await _studentRepository.GetAsync(x => x.Id == id);
+            if (student is null)
+                throw new Exception("Student Not Found");
+
+            await _studentRepository.DeleteAsync(student,true);
+        }
     }
 }

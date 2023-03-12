@@ -3,39 +3,46 @@
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
-<div class="card">
-    <button onClick="openModal()" type="button" name="entity-create" class="btn btn-primary">Create Student</button>
-    <div class="card-body">
-        <table id="studentTable" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        FirstName
-                    </th>
-                    <th>
-                        LastName
-                    </th>
-                    <th>
-                        BirthDate
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-</div>
+<div class="lp-content h-100">
 
+    <div class="card">
+        <button onClick="openModal()" type="button" name="entity-create" class="btn btn-primary">Create Student</button>
+        <div class="card-body">
+            <table id="studentTable" class="table table-striped display nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            FirstName
+                        </th>
+                        <th>
+                            LastName
+                        </th>
+                        <th>
+                            BirthDate
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 
 @section Scripts{
     <script>
         var createUpdateModal = new kusys.ModalManager({
             viewUrl: "/Students/CreateUpdateModal"
         });
+        var deleteModal = new kusys.ModalManager({
+            viewUrl: "/Students/deleteModal"
+        });
+
         var dataTable = $('#studentTable').DataTable({
             "proccessing": true,
             "serverSide": true,
@@ -52,8 +59,14 @@
                     "orderable": false,
                     "render": function (data, type, row, meta) {
                         let text = '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
+                            ' class="btn btn-sm btn-outline-info p-1 " name="entity-detail" title="' +
+                            "Detail" + '" data-rowid="' + row.id + '" ><i class="fa fa-info-circle"></i></a></span>'
+                        text += '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
                             ' class="btn btn-sm btn-outline-info p-1 " name="entity-edit" title="' +
-                            "Edit" + '" data-rowid="' + row.id + '" ><i class="fas fa-edit"></i></a></span>';
+                            "Edit" + '" data-rowid="' + row.id + '" ><i class="fa fa-edit"></i></a></span>'
+                        text += '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
+                            ' class="btn btn-sm btn-outline-info p-1 " name="entity-delete" title="' +
+                            "Delete" + '" data-rowid="' + row.id + '" ><i class="fa fa-trash"></i></a></span>';
                         return text;
                     }
                 },
@@ -70,11 +83,25 @@
             createUpdateModal.open({ id: rowId });
         });
 
+        $('#studentTable tbody').on('click', '[name=entity-delete]', function () {
+            var rowId = $(this).data('rowid');
+            deleteModal.open({ id: rowId });
+        });
+
+        $('#studentTable tbody').on('click', '[name=entity-detail]', function () {
+            var rowId = $(this).data('rowid');
+            createUpdateModal.open({ id: rowId, readOnly: true });
+        });
+
         function openModal(){
             createUpdateModal.open();
         }
 
         createUpdateModal.onResult(function () {
+            dataTable.ajax.reload(null, false);
+        });
+
+        deleteModal.onResult(function () {
             dataTable.ajax.reload(null, false);
         });
     </script>
