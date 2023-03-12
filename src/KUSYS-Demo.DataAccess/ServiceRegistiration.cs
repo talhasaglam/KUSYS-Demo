@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KUSYS_Demo.DataAccess.DataSeeder;
+using System.Reflection;
 
 namespace KUSYS_Demo.DataAccess
 {
@@ -28,6 +30,30 @@ namespace KUSYS_Demo.DataAccess
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
 
+            //Creates new object for all classes that inherit BaseDataSeeder
+            services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseDataSeeder));
+
+            return services;
+        }
+
+        private static IServiceCollection AddSubClassesOfType(
+        this IServiceCollection services,
+        Assembly assembly,
+        Type type,
+        Func<IServiceCollection, Type, IServiceCollection> addWithLifeCycle = null)
+        {
+            var types = assembly.GetTypes().Where(t => t.IsSubclassOf(type) && type != t).ToList();
+            foreach (var item in types)
+            {
+                if (addWithLifeCycle == null)
+                {
+                    services.AddScoped(item);
+                }
+                else
+                {
+                    addWithLifeCycle(services, type);
+                }
+            }
             return services;
         }
     }

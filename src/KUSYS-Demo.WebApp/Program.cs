@@ -1,4 +1,5 @@
 using KUSYS_Demo.DataAccess;
+using KUSYS_Demo.DataAccess.DataSeeder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +25,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+var dataSeeder = app.Configuration.GetValue<bool>("AppOptions:DataSeeder");
+if (dataSeeder)
+    app.Services.DataSeed();
 
 app.Run();
