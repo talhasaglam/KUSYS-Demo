@@ -12,12 +12,14 @@ namespace KUSYS_Demo.Application.Services.Interfaces
 {
     public interface IStudentService
     {
-        Task<List<StudentDto>> GetListAsync();
+        Task<List<StudentSimpleDto>> GetListAsync();
 
         Task<PagedResultDto<StudentSimpleDto>> GetPagedListAsync(DataTablesRequest dataTablesRequest);
 
         Task<StudentDto> GetAsync(int id);
 
         Task UpdateAsync(UpdateStudentDto updateStudentDto);
+
+        Task CreateAsync(CreateStudentDto createStudentDto);
     }
 }

@@ -1,11 +1,13 @@
 using KUSYS_Demo.DataAccess;
 using KUSYS_Demo.DataAccess.DataSeeder;
+using KUSYS_Demo.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDataAccessServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

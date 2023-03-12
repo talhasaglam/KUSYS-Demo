@@ -20,6 +20,8 @@ namespace KUSYS_Demo.Application.Mapper
         {
             CreateMap<Student, StudentSimpleDto>();
             CreateMap<CreateStudentDto, Student>();
+            CreateMap<UpdateStudentDto, Student>();
+            CreateMap<StudentDto, Student>().ReverseMap();
         }
     }
 }
