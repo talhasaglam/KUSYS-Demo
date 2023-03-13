@@ -6,8 +6,9 @@
 <div class="lp-content h-100">
 
     <div class="card">
-        <button onClick="openModal()" type="button" name="entity-create" class="btn btn-primary">Create Student</button>
         <div class="card-body">
+            <button onClick="openModal()" type="button" name="entity-create" class="btn btn-primary">Create Student</button>
+            <br /><br />
             <table id="studentTable" class="table table-striped display nowrap" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -48,6 +49,7 @@
         });
 
         var dataTable = $('#studentTable').DataTable({
+            "responsive": true,
             "proccessing": true,
             "serverSide": true,
             "searching": false,
@@ -62,6 +64,7 @@
                     "targets": -2,
                     "data": "buttons",
                     "orderable": false,
+                    "width": "10%",
                     "render": function (data, type, row, meta) {
                         let text = '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
                             ' class="btn btn-sm btn-outline-info p-1 " name="entity-detail" title="' +
@@ -84,26 +87,18 @@
                     "orderable": false,
                     "data": null,
                     "defaultContent": '',
+                    "width": "5%"
                 },
                 { "name": "Id", "data": "id", "targets": 0, "visible": false },
                 { "name": "FirstName", "data": "firstName", "targets": 1 },
                 { "name": "LastName", "data": "lastName", "targets": 2 },
-                { "name": "BirthDate", "data": "birthDate", "targets": 3 }
+                { "name": "BirthDate", "data": "birthDate", "targets": 3, "render": function (data, type, row, meta) { return new Date(data).toLocaleDateString() } }
             ],
             "order": [[0, "desc"]]
         });
 
-        //function format(data) {
-        //    // `d` is the original data object for the row
-        //    var table = '';
-        //    table += '<table id="courseTable" class="table">';
-        //    table += '<thead><tr><th>CourseId</th><th>CourseName</th></tr></thead>';
-        //    table += '<tbody></tbody></table>';
-        //    return (table);
-        //}
+        function courseDetailTable(data) {
 
-        function format(data) {
-            // `d` is the original data object for the row
             var table = '';
             table += '<table id="courseTable" class="table">';
             table += '<thead><tr><th>Actions</th><th>CourseId</th><th>CourseName</th></tr></thead>';
@@ -130,11 +125,8 @@
                 tr.removeClass('shown');
             } else {
                 // Open this row
-                row.child(format(row.data())).show();
+                row.child(courseDetailTable(row.data())).show();
                 tr.addClass('shown');
-
-
-
             }
         });
 

@@ -21,8 +21,6 @@ namespace KUSYS_Demo.DataAccess.Repositories
 
             if (!string.IsNullOrEmpty(filterText))
             {
-                //WhereIf eklenmeli.
-
                 quaryable = quaryable.Where(s => s.FirstName.ToUpper().Contains(filterText)
                                              || s.LastName.ToUpper().Contains(filterText));
             }
@@ -40,8 +38,6 @@ namespace KUSYS_Demo.DataAccess.Repositories
             var quaryable = GetQueryable();
             if (!string.IsNullOrEmpty(filterText))
             {
-                //WhereIf eklenmeli.
-
                 quaryable = quaryable.Where(s => s.FirstName.ToUpper().Contains(filterText)
                                              || s.LastName.ToUpper().Contains(filterText));
             }

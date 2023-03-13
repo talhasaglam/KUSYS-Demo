@@ -18,9 +18,9 @@ namespace KUSYS_Demo.Application.Services.Interfaces
 
         Task<StudentDto> GetAsync(int id);
 
-        Task UpdateAsync(CreateUpdateStudentDto updateStudentDto,int id);
+        Task UpdateAsync(StudentDto updateStudentDto,int id);
 
-        Task CreateAsync(CreateUpdateStudentDto createStudentDto);
+        Task CreateAsync(StudentDto createStudentDto);
 
         Task DeleteAsync(int id);
 

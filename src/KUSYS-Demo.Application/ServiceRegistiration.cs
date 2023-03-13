@@ -10,6 +10,7 @@ namespace KUSYS_Demo.Application
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            //Service DI 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ICourseService, CourseService>();
             //Automapper

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KUSYS_Demo.WebApp</title>
+    <title>@ViewData["Title"] - KUSYS-Demo App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script src="https://example.com/fontawesome/v6.3.0/js/all.js" data-auto-a11y="true"></script>
@@ -11,10 +11,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/r-2.1.0/datatables.min.css" />
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
-    @*dt-control*@
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css"/>
 
-    @*<link rel="stylesheet" href="~/KUSYS_Demo.WebApp.styles.css" asp-append-version="true" />*@
 </head>
 <body>
     <header>
@@ -26,14 +25,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Students/Index">Student</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </nav>
@@ -46,7 +37,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - KUSYS_Demo.WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+             13.03.2023 - KUSYS_Demo
         </div>
     </footer>
 
@@ -64,14 +55,8 @@
     <script src="~/kusys/kusys-utils.umd.min.js" asp-append-version="true"></script>
     <script src="~/kusys/jquery-form-extensions.js" asp-append-version="true"></script>
     <script src="~/kusys/modal-manager.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-
-    @*<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
-    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
-    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-
-    
-    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

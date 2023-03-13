@@ -3,6 +3,7 @@ using KUSYS_Demo.Application.Dtos.Student;
 using KUSYS_Demo.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace KUSYS_Demo.WebApp.Pages.Students
 {
@@ -17,7 +18,7 @@ namespace KUSYS_Demo.WebApp.Pages.Students
         public bool ReadOnly { get; set; }
 
         [BindProperty]
-        public CreateUpdateStudentDto Student { get; set; }
+        public CreateUpdateStudentViewModal Input { get; set; }
 
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
@@ -31,7 +32,7 @@ namespace KUSYS_Demo.WebApp.Pages.Students
             if (Id > 0)
             {
                 var studentDto = await _studentService.GetAsync(Id);
-                Student = _mapper.Map<CreateUpdateStudentDto>(studentDto);
+                Input = _mapper.Map<CreateUpdateStudentViewModal>(studentDto);
             }
 
             await Task.CompletedTask;
@@ -42,14 +43,28 @@ namespace KUSYS_Demo.WebApp.Pages.Students
             if (!ModelState.IsValid)
                 return InvalidModel();
 
+            var studentDto = _mapper.Map<StudentDto>(Input);
+
             if(Id > 0)
             {
-                await _studentService.UpdateAsync(Student,Id);
+                await _studentService.UpdateAsync(studentDto, Id);
             }
             else
-                await _studentService.CreateAsync(Student);
+                await _studentService.CreateAsync(studentDto);
 
             return NoContent();
         }
+    }
+
+    public class CreateUpdateStudentViewModal
+    {
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public DateTime BirthDate { get; set; }
     }
 }

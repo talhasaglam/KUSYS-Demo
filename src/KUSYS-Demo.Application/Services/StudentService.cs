@@ -24,13 +24,10 @@ namespace KUSYS_Demo.Application.Services
             _studentRepository = studentRepository;
             _mapper = mapper;
         }
-        public async Task CreateAsync(CreateUpdateStudentDto createStudentDto)
+        public async Task CreateAsync(StudentDto createStudentDto)
         {
             var student = _mapper.Map<Student>(createStudentDto);
             await _studentRepository.InsertAsync(student,true);
-
-            //await SetCourses(student, 1);
-            //await SetCourses(student, 1);
         }
 
         public async Task<StudentDto> GetAsync(int id)
@@ -66,13 +63,13 @@ namespace KUSYS_Demo.Application.Services
             return new PagedResultDto<StudentSimpleDto> { Items = studentSimpleListDto, TotalCount = totalCount, RecordCount = recordCount };
         }
 
-        public async Task UpdateAsync(CreateUpdateStudentDto updateStudentDto, int id)
+        public async Task UpdateAsync(StudentDto updateStudentDto, int id)
         {
             var student = await _studentRepository.GetAsync(x => x.Id == id);
             if (student is null)
                 throw new Exception("Student Not Found");
 
-            var mappedStudent = _mapper.Map<CreateUpdateStudentDto,Student>(updateStudentDto,student);
+            var mappedStudent = _mapper.Map(updateStudentDto,student);
             await _studentRepository.UpdateAsync(mappedStudent, true);
         }
 
@@ -88,6 +85,12 @@ namespace KUSYS_Demo.Application.Services
         public async Task SetCoruseAsync(int sutdentId, int courseId)
         {
             var student = await _studentRepository.GetAsync(x => x.Id == sutdentId, x => x.Include(y => y.Courses).ThenInclude(z => z.Course));
+
+            if (student is null)
+                throw new Exception("Student Not Found");
+
+            if (student.Courses.Any(x => x.CourseId == courseId))
+                throw new Exception("Student already registired this course.");
 
             student.AddCourse(courseId);
 

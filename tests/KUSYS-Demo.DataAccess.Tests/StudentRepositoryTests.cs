@@ -22,7 +22,6 @@ namespace KUSYS_Demo.DataAccess.Tests
         [Fact]
         public async Task CreateStudent()
         {
-            var studentList = GetStudentListData();
             var newStudent = new Student(4, "Emre", "Saglam", Convert.ToDateTime("17/02/1995"));
             _studentRepository.Setup(x => x.InsertAsync(newStudent, true,default).Result).Returns(newStudent);
 
@@ -36,7 +35,6 @@ namespace KUSYS_Demo.DataAccess.Tests
         [Fact]
         public async Task UpdateStudent()
         {
-            var studentList = GetStudentListData();
             var updatedStudent = new Student(3, "Emre", "Saglam", Convert.ToDateTime("17/02/1995"));
             _studentRepository.Setup(x => x.UpdateAsync(updatedStudent, true, default).Result).Returns(updatedStudent);
 
@@ -45,23 +43,6 @@ namespace KUSYS_Demo.DataAccess.Tests
 
             Assert.NotNull(result);
             Assert.Equal(updatedStudent.Courses.Count, result.Courses.Count);
-        }
-
-        public List<Student> GetStudentListData()
-        {
-            var studentList = new List<Student>
-            {
-                new Student(1,"Ali","Saglam",Convert.ToDateTime("12/05/1995")),
-                new Student(2,"Veli","Yilmaz",Convert.ToDateTime("10/03/1997")),
-                new Student(3,"Talha","Saglam",Convert.ToDateTime("17/02/1995"))
-            };
-            var studentCourse = new StudentCourse(studentList[2].Id, 1);
-            studentCourse.Student = studentList[2];
-            studentCourse.Course = new Course(2, 102, Entity.Types.CourseType.ComputerScience, "Algorithms");
-            studentList[2].Courses.Add(studentCourse);
-
-            return studentList;
-
         }
 
     }

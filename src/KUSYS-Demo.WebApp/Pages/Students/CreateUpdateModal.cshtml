@@ -17,19 +17,19 @@
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="ReadOnly" />
                     <div class="form-group">
-                        <label asp-for="Student.FirstName" class="control-label"></label>
-                        <input asp-for="Student.FirstName" class="form-control" readonly="@Model.ReadOnly"/>
-                        <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+                        <label asp-for="Input.FirstName" class="control-label"></label>
+                        <input asp-for="Input.FirstName" class="form-control" readonly="@Model.ReadOnly" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Student.LastName" class="control-label"></label>
-                        <input asp-for="Student.LastName" class="form-control" readonly="@Model.ReadOnly" />
-                        <span asp-validation-for="Student.LastName" class="text-danger"></span>
+                        <label asp-for="Input.LastName" class="control-label"></label>
+                        <input asp-for="Input.LastName" class="form-control" readonly="@Model.ReadOnly" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Student.BirthDate" class="control-label"></label>
-                        <input asp-for="Student.BirthDate" type="date" class="form-control" readonly="@Model.ReadOnly" />
-                        <span asp-validation-for="Student.BirthDate" class="text-danger"></span>
+                        <label asp-for="Input.BirthDate" class="control-label"></label>
+                        <input asp-for="Input.BirthDate" type="date" class="form-control" readonly="@Model.ReadOnly" />
+                        <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="modal-footer">

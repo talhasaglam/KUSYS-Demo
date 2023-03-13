@@ -1,13 +1,21 @@
 using KUSYS_Demo.DataAccess;
 using KUSYS_Demo.DataAccess.DataSeeder;
 using KUSYS_Demo.Application;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AddPageRoute("/Students/Index","");
+});
+
 builder.Services.AddDataAccessServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+//Automapper
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
 var app = builder.Build();
 
