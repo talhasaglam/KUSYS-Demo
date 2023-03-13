@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KUSYS_Demo.Application.Dtos.Course;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,8 @@ namespace KUSYS_Demo.Application.Dtos.Student
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public List<StudentCourseDto> Courses { get; set; }
+
     }
 }

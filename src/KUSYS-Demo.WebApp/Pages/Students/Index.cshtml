@@ -24,6 +24,7 @@
                             BirthDate
                         </th>
                         <th>Actions</th>
+                        <th>Courses</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +55,8 @@
             },
             "columnDefs": [
                 {
-                    "targets": -1,
+
+                    "targets": -2,
                     "data": "buttons",
                     "orderable": false,
                     "render": function (data, type, row, meta) {
@@ -70,12 +72,64 @@
                         return text;
                     }
                 },
+                {
+                    "targets": -1,
+                    "className": "dt-control",
+                    "orderable": false,
+                    "data": null,
+                    "defaultContent": '',
+                },
                 { "name": "Id", "data": "id", "targets": 0, "visible": false },
                 { "name": "FirstName", "data": "firstName", "targets": 1 },
                 { "name": "LastName", "data": "lastName", "targets": 2 },
                 { "name": "BirthDate", "data": "birthDate", "targets": 3 }
             ],
             "order": [[0, "desc"]]
+        });
+
+        //function format(data) {
+        //    // `d` is the original data object for the row
+        //    var table = '';
+        //    table += '<table id="courseTable" class="table">';
+        //    table += '<thead><tr><th>CourseId</th><th>CourseName</th></tr></thead>';
+        //    table += '<tbody></tbody></table>';
+        //    return (table);
+        //}
+
+        function format(data) {
+            // `d` is the original data object for the row
+            var table = '';
+            table += '<table id="courseTable" class="table">';
+            table += '<thead><tr><th>Actions</th><th>CourseId</th><th>CourseName</th></tr></thead>';
+            table += '<tbody>';
+            data.courses.forEach(function (course) {
+                let text = '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
+                    ' class="btn btn-sm btn-outline-info p-1 " name="course-delete" title="' +
+                    "Delete" + '" data-rowid="' + course.courseId + '" ><i class="fa fa-trash"></i></a></span>';
+                var tbd = '<tr>' + '<td>' + text + '</td>'  + '<td>' + course.courseId + '</td>' + '<td>' + course.courseName + '</td>' + '</tr>';
+                table += tbd;
+            });
+            table += '</tbody>';
+            table += '</table>';
+            return (table);
+        }
+
+        $('#studentTable tbody').on('click', 'td.dt-control', function () {
+            var tr = $(this).closest('tr');
+            var row = dataTable.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+
+
+
+            }
         });
 
         $('#studentTable tbody').on('click', '[name=entity-edit]', function () {

@@ -2,6 +2,7 @@
 using KUSYS_Demo.DataAccess.Repositories.Interfaces;
 using KUSYS_Demo.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace KUSYS_Demo.DataAccess.Repositories
 {
@@ -33,7 +34,8 @@ namespace KUSYS_Demo.DataAccess.Repositories
         }
 
         //For Paginitaion and filtering
-        public async Task<List<Student>> GetPagedListAsync(string filterText, int skipCount, int maxResultCount, CancellationToken cancellationToken = default)
+        public async Task<List<Student>> GetPagedListAsync(string filterText, int skipCount, int maxResultCount, Func<IQueryable<Student>, IIncludableQueryable<Student, object>>
+                                                           include = null, CancellationToken cancellationToken = default)
         {
             var quaryable = GetQueryable();
             if (!string.IsNullOrEmpty(filterText))
@@ -44,6 +46,7 @@ namespace KUSYS_Demo.DataAccess.Repositories
                                              || s.LastName.ToUpper().Contains(filterText));
             }
 
+            if(include != null) quaryable = include(quaryable);
 
             return await quaryable.Skip(skipCount).Take(maxResultCount).AsNoTracking().ToListAsync(cancellationToken);
 

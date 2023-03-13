@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/r-2.1.0/datatables.min.css" />
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
+    @*dt-control*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css"/>
 
     @*<link rel="stylesheet" href="~/KUSYS_Demo.WebApp.styles.css" asp-append-version="true" />*@
 </head>
@@ -64,7 +66,12 @@
     <script src="~/kusys/modal-manager.js" asp-append-version="true"></script>
 
 
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+    
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

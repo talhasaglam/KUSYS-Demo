@@ -5,6 +5,7 @@ using KUSYS_Demo.Application.Pagination;
 using KUSYS_Demo.Application.Services.Interfaces;
 using KUSYS_Demo.DataAccess.Repositories.Interfaces;
 using KUSYS_Demo.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace KUSYS_Demo.Application.Services
 
             var (totalCount, recordCount) = await _studentRepository.CountAsync(searchText, skip, take);
 
-            var students = await _studentRepository.GetPagedListAsync(searchText, skip, take);
+            var students = await _studentRepository.GetPagedListAsync(searchText, skip, take, x=>x.Include(y=>y.Courses).ThenInclude(z=>z.Course));
 
             var studentSimpleListDto = _mapper.Map<List<StudentSimpleDto>>(students);
 
