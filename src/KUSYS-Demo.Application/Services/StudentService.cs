@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
-using KUSYS_Demo.Application.DataTables;
 using KUSYS_Demo.Application.Dtos.Student;
 using KUSYS_Demo.Application.Pagination;
 using KUSYS_Demo.Application.Services.Interfaces;
 using KUSYS_Demo.DataAccess.Repositories.Interfaces;
 using KUSYS_Demo.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KUSYS_Demo.Application.Services
 {
@@ -48,15 +41,13 @@ namespace KUSYS_Demo.Application.Services
             return _mapper.Map<List<StudentSimpleDto>>(students);
         }
 
-        public async Task<PagedResultDto<StudentSimpleDto>> GetPagedListAsync(DataTablesRequest dataTablesRequest)
+        public async Task<PagedResultDto<StudentSimpleDto>> GetPagedListAsync(GetPagePropDto getPagePropDto)
         {
-            var searchText = dataTablesRequest.Search.Value?.ToUpper();
-            var skip = dataTablesRequest.Start;
-            var take = dataTablesRequest.Length;
 
-            var (totalCount, recordCount) = await _studentRepository.CountAsync(searchText, skip, take);
 
-            var students = await _studentRepository.GetPagedListAsync(searchText, skip, take, x=>x.Include(y=>y.Courses).ThenInclude(z=>z.Course));
+            var (totalCount, recordCount) = await _studentRepository.CountAsync(getPagePropDto.SearchText, getPagePropDto.Skip, getPagePropDto.Take);
+
+            var students = await _studentRepository.GetPagedListAsync(getPagePropDto.SearchText, getPagePropDto.Skip, getPagePropDto.Take, x=>x.Include(y=>y.Courses).ThenInclude(z=>z.Course));
 
             var studentSimpleListDto = _mapper.Map<List<StudentSimpleDto>>(students);
 

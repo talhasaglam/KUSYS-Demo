@@ -1,8 +1,7 @@
-using KUSYS_Demo.Application.DataTables;
-using KUSYS_Demo.Application.Services;
+using KUSYS_Demo.Application.Pagination;
 using KUSYS_Demo.Application.Services.Interfaces;
+using KUSYS_Demo.WebApp.DataTables;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace KUSYS_Demo.WebApp.Pages.Students
 {
@@ -22,7 +21,9 @@ namespace KUSYS_Demo.WebApp.Pages.Students
 
         public async Task<JsonResult> OnPostAsync()
         {
-            var pagedResultDto = await _studentService.GetPagedListAsync(DataTablesRequest);
+            var searchText = DataTablesRequest.Search.Value?.ToUpper();
+            var pagePropDto = new GetPagePropDto() { SearchText= searchText, Skip= DataTablesRequest.Start, Take= DataTablesRequest.Length };
+            var pagedResultDto = await _studentService.GetPagedListAsync(pagePropDto);
             return new JsonResult(new
             {
                 Draw = DataTablesRequest.Draw,

@@ -1,5 +1,5 @@
 ﻿
-namespace KUSYS_Demo.Application.DataTables
+namespace KUSYS_Demo.WebApp.DataTables
 {
     public class Order
     {
