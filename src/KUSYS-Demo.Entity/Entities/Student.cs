@@ -31,6 +31,11 @@ namespace KUSYS_Demo.Entity.Entities
 
         }
 
+        public Student(int id, string firstName, string lastName, DateTime birthDate) : this(firstName,lastName,birthDate)
+        {
+            Id = id;
+        }
+
         public void AddCourse(int courseId) { 
 
              if (IsInCourse(courseId)) { return; }

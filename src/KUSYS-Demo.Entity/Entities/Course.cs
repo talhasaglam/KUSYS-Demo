@@ -27,6 +27,11 @@ namespace KUSYS_Demo.Entity.Entities
             Students = new Collection<StudentCourse>();
         }
 
+        public Course(int id,int courseNumber, CourseType courseType, string courseName) : this(courseNumber, courseType, courseName)
+        {
+            Id = id;
+        }
+
         public void SetCourseCode(int courseNumber, CourseType courseType)
         {
             CourseCode = GetPrefix(courseNumber, courseType);
