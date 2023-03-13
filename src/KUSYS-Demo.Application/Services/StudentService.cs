@@ -28,12 +28,21 @@ namespace KUSYS_Demo.Application.Services
         {
             var student = _mapper.Map<Student>(createStudentDto);
             await _studentRepository.InsertAsync(student,true);
+
+            //await SetCourses(student, 1);
+            //await SetCourses(student, 1);
         }
 
         public async Task<StudentDto> GetAsync(int id)
         {
             var student = await _studentRepository.GetAsync(x => x.Id == id);
             return _mapper.Map<StudentDto>(student);
+        }
+
+        public async Task<StudentWithDetailsDto> GetWithDetailsAsync(int id)
+        {
+            var student = await _studentRepository.GetAsync(x => x.Id == id, x => x.Include(y => y.Courses).ThenInclude(z => z.Course));
+            return _mapper.Map<StudentWithDetailsDto>(student);
         }
 
         public async Task<List<StudentSimpleDto>> GetListAsync()
@@ -74,6 +83,15 @@ namespace KUSYS_Demo.Application.Services
                 throw new Exception("Student Not Found");
 
             await _studentRepository.DeleteAsync(student,true);
+        }
+
+        public async Task SetCoruseAsync(int sutdentId, int courseId)
+        {
+            var student = await _studentRepository.GetAsync(x => x.Id == sutdentId, x => x.Include(y => y.Courses).ThenInclude(z => z.Course));
+
+            student.AddCourse(courseId);
+
+            await _studentRepository.UpdateAsync(student, true);
         }
     }
 }

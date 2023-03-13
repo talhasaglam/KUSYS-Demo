@@ -1,0 +1,31 @@
+﻿@page
+@model KUSYS_Demo.WebApp.Pages.Students.AddCourseModalModel
+@{
+    Layout = null;
+}
+<form data-ajaxForm="true" asp-page="/Students/AddCourseModal" method="post">
+    <div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addCourseModalLabel">Course Add Form</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="IsSaveButtonDisabled" />
+                    <div class="form-group">
+                        <label asp-for="CourseNames" class="control-label"></label>
+                        <select asp-for="Input.Id" asp-items="Model.CourseNames" class="form-control"></select>
+                        <span asp-validation-for="Input.Id" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Cancel</button>
+                    <button class="btn btn-primary" disabled="@Model.IsSaveButtonDisabled" type="submit"><i class="fa fa-check"></i> <span>Save</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

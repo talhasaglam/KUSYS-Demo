@@ -13,5 +13,11 @@ namespace KUSYS_Demo.Entity.Entities
 
         public int CourseId { get; set; }
         public Course Course { get; set; }
+
+        public StudentCourse(int studentId, int courseId)
+        {
+            StudentId = studentId;
+            CourseId = courseId;
+        }
     }
 }

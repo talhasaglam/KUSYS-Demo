@@ -23,5 +23,9 @@ namespace KUSYS_Demo.Application.Services.Interfaces
         Task CreateAsync(CreateUpdateStudentDto createStudentDto);
 
         Task DeleteAsync(int id);
+
+        Task<StudentWithDetailsDto> GetWithDetailsAsync(int id);
+
+        Task SetCoruseAsync(int sutdentId,int courseId);
     }
 }

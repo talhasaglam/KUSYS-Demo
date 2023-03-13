@@ -1,6 +1,7 @@
 ﻿using KUSYS_Demo.DataAccess.Repositories.Interfaces;
 using KUSYS_Demo.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace KUSYS_Demo.DataAccess.Repositories
@@ -15,21 +16,25 @@ namespace KUSYS_Demo.DataAccess.Repositories
             Context = context;
         }
 
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, CancellationToken cancellationToken = default)
         {
             var query = GetQueryable();
+            if (include != null) query = include(query);
             return await query.Where(predicate).SingleOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, CancellationToken cancellationToken = default)
         {
             var query = GetQueryable();
+            if (include != null) query = include(query);
             return await query.Where(predicate).AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default)
+        public async Task<List<TEntity>> GetListAsync(Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>
+                                                           include = null, CancellationToken cancellationToken = default)
         {
             var query = GetQueryable();
+            if (include != null) query = include(query);
             return await query.AsNoTracking().ToListAsync(cancellationToken);
         }
 

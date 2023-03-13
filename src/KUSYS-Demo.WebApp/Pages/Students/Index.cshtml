@@ -41,7 +41,10 @@
             viewUrl: "/Students/CreateUpdateModal"
         });
         var deleteModal = new kusys.ModalManager({
-            viewUrl: "/Students/deleteModal"
+            viewUrl: "/Students/DeleteModal"
+        });
+        var addCourseModal = new kusys.ModalManager({
+            viewUrl: "/Students/AddCourseModal"
         });
 
         var dataTable = $('#studentTable').DataTable({
@@ -69,6 +72,9 @@
                         text += '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
                             ' class="btn btn-sm btn-outline-info p-1 " name="entity-delete" title="' +
                             "Delete" + '" data-rowid="' + row.id + '" ><i class="fa fa-trash"></i></a></span>';
+                        text += '<span class="d-inline-block" data-toggle="tooltip"><a style="border-width:1px;width:28px;"' +
+                            ' class="btn btn-sm btn-outline-info p-1 " name="entity-add-course" title="' +
+                            "Add Course" + '" data-rowid="' + row.id + '" ><i class="fa fa-plus"></i></a></span>';
                         return text;
                     }
                 },
@@ -147,6 +153,11 @@
             createUpdateModal.open({ id: rowId, readOnly: true });
         });
 
+        $('#studentTable tbody').on('click', '[name=entity-add-course]', function () {
+            var rowId = $(this).data('rowid');
+            addCourseModal.open({ id: rowId });
+        });
+
         function openModal(){
             createUpdateModal.open();
         }
@@ -156,6 +167,10 @@
         });
 
         deleteModal.onResult(function () {
+            dataTable.ajax.reload(null, false);
+        });
+
+        addCourseModal.onResult(function () {
             dataTable.ajax.reload(null, false);
         });
     </script>

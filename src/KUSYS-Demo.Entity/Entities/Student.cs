@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace KUSYS_Demo.Entity.Entities
 {
@@ -28,6 +29,35 @@ namespace KUSYS_Demo.Entity.Entities
             BirthDate = birthDate;
             Courses = new Collection<StudentCourse>();
 
+        }
+
+        public void AddCourse(int courseId) { 
+
+             if (IsInCourse(courseId)) { return; }
+
+            Courses.Add(new StudentCourse(studentId: Id, courseId: courseId));
+        }
+
+        public void RemoveCourse(int courseId)
+        {
+
+            if (!IsInCourse(courseId)) { return; }
+
+            Courses.ToList().RemoveAll(x => x.CourseId == courseId);
+        }
+
+        private bool IsInCourse(int courseId) {
+
+            return Courses.Any(x => x.CourseId == courseId); 
+
+        }
+
+        public void RemoveAllCourse(int courseId)
+        {
+
+            if (!IsInCourse(courseId)) { return; }
+
+            Courses.ToList().RemoveAll(x => x.StudentId == Id);
         }
     }
 }

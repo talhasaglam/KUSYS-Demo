@@ -16,8 +16,4 @@
     <ProjectReference Include="..\KUSYS-Demo.DataAccess\KUSYS-Demo.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Course\" />
-  </ItemGroup>
-
 </Project>

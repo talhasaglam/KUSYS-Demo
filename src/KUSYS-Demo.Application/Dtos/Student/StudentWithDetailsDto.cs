@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KUSYS_Demo.Application.Dtos.Student
 {
-    public class StudentSimpleDto
+    public class StudentWithDetailsDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -15,6 +15,5 @@ namespace KUSYS_Demo.Application.Dtos.Student
         public DateTime BirthDate { get; set; }
 
         public List<StudentCourseDto> Courses { get; set; }
-
     }
 }
